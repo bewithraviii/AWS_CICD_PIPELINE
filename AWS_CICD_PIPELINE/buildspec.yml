@@ -1,0 +1,22 @@
+version: 0.2
+
+phases: 
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Installing NPM dependencies..."
+      - cd lambda
+      - npm install
+    build:
+      commands:
+        - echo "Building lambda project..."
+        - cd lambda
+        - zip -r ../LambdaFunction.zip .
+        - cd ..
+    post-build:
+      commands:
+        - echo "Uploading to S3..."
+artifacts:
+  files:
+    - LambdaFunction.zip
