@@ -98,7 +98,7 @@ Resources:
     Properties:
       InstanceType: !Ref InstanceType
       ImageId: ami-0861f4e788f5069dd
-      KeyName: key-0c48f47c612d61bee
+      KeyName: 0c48f47c612d61bee
       SecurityGroups:
         - !Ref CiCdPipelineSG
       UserData:
