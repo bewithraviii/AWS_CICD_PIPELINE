@@ -8,16 +8,90 @@ Parameters:
     Description: EC2 instance type
 
 Resources:
-  IAMRolesStack:
-    Type: AWS::CloudFormation::Stack
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
     Properties:
-      TemplateURL: ./roles.yml
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodePipelinePermissions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:*
+                  - codebuild:*
+                  - cloudformation:*
+                  - iam:PassRole
+                  - lambda:*
+                  - ec2:*
+                Resource: '*'
+  
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CodeBuildPermissions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:*
+                  - cloudformation:*
+                  - lambda:*
+                  - ec2:*
+                  - logs:*
+                Resource: '*'
 
-  LambdaStack:
-    Type: AWS::CloudFormation::Stack
-    DependsOn: IAMRolesStack
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
     Properties:
-      TemplateURL: ./lambda.yml
+      RoleName: LambdaExecutionRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaBasicExecution
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+  
+  DeploymentBucket:
+    Type: AWS::S3::Bucket
+  CiCdLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: index.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: nodejs20.x
+      Code:
+        S3Bucket: !Ref DeploymentBucket
+        S3Key: LambdaFunction.zip
+      Timeout: 10
 
   EC2Instance:
     Type: 'AWS::EC2::Instance'

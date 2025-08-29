@@ -10,11 +10,11 @@ phases:
       commands:
         - echo "Building lambda project..."
         - cd lambda
-        - zip -r ../LambdaFunction.zip .
+        - zip -r LambdaFunction.zip .
         - cd ..
-    post-build:
+    post_build:
       commands:
         - echo "Uploading to S3..."
 artifacts:
   files:
-    - LambdaFunction.zip
+    - lambda/LambdaFunction.zip
