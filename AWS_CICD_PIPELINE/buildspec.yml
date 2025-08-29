@@ -1,5 +1,11 @@
 version: 0.2
 
+env:
+  variables:
+    FRONTEND_DIR: "AWS_CICD_PIPELINE/frontend"
+    LAMBDA_DIR: "AWS_CICD_PIPELINE/lambda"
+    CFN_DIR: "AWS_CICD_PIPELINE/cloudformation"
+
 phases: 
   install:
     runtime-versions:
@@ -10,11 +16,12 @@ phases:
       commands:
         - echo "Building lambda project..."
         - cd lambda
-        - zip -r LambdaFunction.zip .
+        - zip -r ../LambdaFunction.zip .
         - cd ..
     post_build:
       commands:
         - echo "Uploading to S3..."
 artifacts:
   files:
-    - lambda/LambdaFunction.zip
+    - LambdaFunction.zip
+    - AWS_CICD_PIPELINE/cloudformation/**
