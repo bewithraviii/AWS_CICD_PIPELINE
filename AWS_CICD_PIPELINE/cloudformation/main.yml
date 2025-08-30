@@ -97,7 +97,31 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       InstanceType: !Ref InstanceType
-      ImageId: ami-0861f4e788f5069dd
+      ImageId: MIIEowIBAAKCAQEAvWE+Pv11d3llm3ULPFZts9TDafyHxbD84iFZXOf9WoiRZb1l
+               J6Q8bs0aV58drnNUOAc/ZgInFldaVtJNslXkHY9qA2ybQMVqJcn0fWtH0hM2cbPj
+               O9K7FyCS8l74LYg/An20coNJLgcCzqM+6ohPxM8toJuAqFmdZuj9DvY/QEPvKjQC
+               8RuSHlejlMMgGFseBd2m5ikV4YUfptOyBpv/kkYxK3k/bb1jNGU/SgN16ke0Ncsr
+               CMqz70Qj7Hu+NDUYdIuJ4L5jsmPotES3FrsvULGY8A8SYFu0EI7PywJlsL0x/ajk
+               wFlzRLG9CeuXcePwBvATOrtLUmOtjeGa8AnC7wIDAQABAoIBAHpZLMG9Nfqt7zrz
+               7wJYRB9+QZFjmMPbiET/jqA7MK8gs+6q4YMu0+wxjec14RMnZy2bYRYiJeaFINQe
+               ohuo6es/EBqOO+8om182jkHI4WmTCAWFVjT7++sBHG6BdIzWDP8q/z1MHCckWGfv
+               h2I2FnLr9mpgjEo3Oz2VIIheBpcZMBRsaxsffxQ5Scgcqb2/ry6muhF9Yh3Ttd/1
+               Jh0SY/s/y4Ngh36hdCzi0QvrrjaQD8VuRbAfOm6B6pKVgzySjNV9VOwYYr47+pL+
+               OC2Rsekb+u8exPUBy2DGJcToKvXJcmkkRkGxXj/JRu1PdQRA/8Eje3ALdGfslkYS
+               wfXcdWECgYEA3WQmpdAd8nYEkXKxJm7X4b0Nno2Ns7YQaA0pE28in413FgAGTBKS
+               HVPBKrS9//RFCpE36W0ArT3529B+cdboWgjnvyfDfn+OifvK7zQ9ZVmVGPRm0z24
+               tKmmW3/2LKkK/HpbccpPEjaD+iMjRupH4UflaGsYivCgsLrYSjjKgBsCgYEA2vwH
+               zdWjYB/xLmvYKVc54FF7ypNtuWkRlYBNWVYM2ZBDFNzGQEtSb5thdnfVZeNyVe3R
+               2lLK9DRfJZ5GQQJN659Pd8JCXpee7J8HMkz91A7G9Ox7ma+YbSm11/EXZaoAFYZC
+               1d3VXZcFc9MU0obZARGXG2VZQALBnrQrfR20fb0CgYBcg09LFs6M1RhPlzfDsanw
+               oMmiKdC++iOc93LkthonxjuvK8911oTMUIV1zRVgcbiwE8LjfjM8MZvJaTSNaZqq
+               lPIShRFCORddPaStlIzbXzXYubiGKVKX3BSyQ6ShQPpgStkPkdS87Z701d4V8iyb
+               TSnmGmqlFKxxbYKYcWbdZQKBgH94d/58XsbEsTsJceHWsYz/QaURHqzwGVlCP0RC
+               j+ZRUIsjXI/uiIUJGLnCVckildqpPh/tU9DFb6FROan78mm26aZXwRSZA9zPUXwZ
+               TyQSmgPWaLh0e7EHt5+E6s62H6hn6B3gLKR3Fahvdc56ynURzTkYTNSzBgwg6rPB
+               B+CtAoGBAI1G9wfJumJr9wAQNZbwUT/Be+GakqCJGFI9WHEszwJ8+3HHsx60sn/x
+               adp8sNMYKFbtO9Ar3eclOcVP9rreeY54MRlwEf22h16+HRu6LYZnYT8L7yRcXHzr
+               ZPG8x5owUInzNOsftFVu3kfsn7vT5rxizvwl0HNqogijT+VtiHS0
       KeyName: 0c48f47c612d61bee
       SecurityGroups:
         - !Ref CiCdPipelineSG
