@@ -96,7 +96,7 @@ Resources:
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      InstanceType: !Ref InstanceType
+      InstanceType: t3.micro
       ImageId: ami-0861f4e788f5069dd
       KeyName: "MIIEowIBAAKCAQEAvWE+Pv11d3llm3ULPFZts9TDafyHxbD84iFZXOf9WoiRZb1l
                J6Q8bs0aV58drnNUOAc/ZgInFldaVtJNslXkHY9qA2ybQMVqJcn0fWtH0hM2cbPj
