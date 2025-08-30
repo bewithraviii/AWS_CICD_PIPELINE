@@ -98,7 +98,7 @@ Resources:
     Properties:
       InstanceType: !Ref InstanceType
       ImageId: ami-0861f4e788f5069dd
-      KeyName: MIIEowIBAAKCAQEAvWE+Pv11d3llm3ULPFZts9TDafyHxbD84iFZXOf9WoiRZb1l
+      KeyName: "MIIEowIBAAKCAQEAvWE+Pv11d3llm3ULPFZts9TDafyHxbD84iFZXOf9WoiRZb1l
                J6Q8bs0aV58drnNUOAc/ZgInFldaVtJNslXkHY9qA2ybQMVqJcn0fWtH0hM2cbPj
                O9K7FyCS8l74LYg/An20coNJLgcCzqM+6ohPxM8toJuAqFmdZuj9DvY/QEPvKjQC
                8RuSHlejlMMgGFseBd2m5ikV4YUfptOyBpv/kkYxK3k/bb1jNGU/SgN16ke0Ncsr
@@ -122,7 +122,7 @@ Resources:
                TyQSmgPWaLh0e7EHt5+E6s62H6hn6B3gLKR3Fahvdc56ynURzTkYTNSzBgwg6rPB
                B+CtAoGBAI1G9wfJumJr9wAQNZbwUT/Be+GakqCJGFI9WHEszwJ8+3HHsx60sn/x
                adp8sNMYKFbtO9Ar3eclOcVP9rreeY54MRlwEf22h16+HRu6LYZnYT8L7yRcXHzr
-               ZPG8x5owUInzNOsftFVu3kfsn7vT5rxizvwl0HNqogijT+VtiHS0
+               ZPG8x5owUInzNOsftFVu3kfsn7vT5rxizvwl0HNqogijT+VtiHS0"
       SecurityGroups:
         - !Ref CiCdPipelineSG
       UserData:
