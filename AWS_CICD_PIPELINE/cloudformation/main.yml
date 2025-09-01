@@ -1,12 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Creating EC2 instance with Lambda and Role Stack
 
-Parameters:
-  InstanceType:
-    Type: String 
-    Default: t3.micro
-    Description: EC2 instance type
-
 Resources:
   CodePipelineServiceRole:
     Type: AWS::IAM::Role
