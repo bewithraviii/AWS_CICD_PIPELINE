@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Creating EC2 instance with Lambda and Role Stack
 
+Parameters:
+  S3BucketName:
+    Type: String
+    Description: "Pre-created S3 bucket name that contains LambdaFunction.zip"
+    
 Resources:
   CodePipelineServiceRole:
     Type: AWS::IAM::Role
@@ -81,7 +86,7 @@ Resources:
       Role: !GetAtt LambdaExecutionRole.Arn
       Runtime: nodejs20.x
       Code:
-        S3Bucket: codepipeline-ap-south-1-6c44a6a5fa5c-435a-8992-7075167d17eb
+        S3Bucket: !Ref S3BucketName
         S3Key: LambdaFunction.zip
       Timeout: 10
 
