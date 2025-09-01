@@ -1,11 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Lambda for CI/CD Project
 
 Resources:
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: LambdaExecutionRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -25,16 +23,13 @@ Resources:
                   - logs:PutLogEvents
                 Resource: '*'
 
-  DeploymentBucket:
-    Type: AWS::S3::Bucket
-  
-  CiCdLambdaFunction:
+  LambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
-      Handler: index.lambda_handler
+      Handler: app.lambda_handler
       Role: !GetAtt LambdaExecutionRole.Arn
-      Runtime: nodejs20.x
       Code:
-        S3Bucket: !Ref DeploymentBucket
-        S3Key: LambdaFunction.zip
+        S3Bucket: cicdbucket-3601
+        S3Key: lambda.zip
+      Runtime: python3.9
       Timeout: 10

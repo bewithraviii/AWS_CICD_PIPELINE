@@ -2,28 +2,27 @@ version: 0.2
 
 env:
   variables:
-    FRONTEND_DIR: "AWS_CICD_PIPELINE/frontend"
-    LAMBDA_DIR: "AWS_CICD_PIPELINE/lambda"
-    CFN_DIR: "AWS_CICD_PIPELINE/cloudformation"
     S3_BUCKET: "cicdbucket-3601"
 
 phases: 
   install:
     runtime-versions:
-      nodejs: 20
+      python: 3.9
     commands:
       - echo "Installing NPM dependencies..."
+      - pip install -r lambda/requirements.txt -t lambda/
     build:
       commands:
         - echo "Building lambda project..."
         - cd lambda
-        - zip -r ../LambdaFunction.zip .
+        - zip -r ../lambda.zip .
         - cd ..
     post_build:
       commands:
         - echo "Uploading to S3..."
-        - aws s3 cp LambdaFunction.zip s3://$S3_BUCKET/LambdaFunction.zip
+        - aws s3 cp lambda.zip s3://$S3_BUCKET/lambda.zip
+        - echo Build completed.
 artifacts:
   files:
-    - LambdaFunction.zip
+    - lambda.zip
     - AWS_CICD_PIPELINE/cloudformation/**

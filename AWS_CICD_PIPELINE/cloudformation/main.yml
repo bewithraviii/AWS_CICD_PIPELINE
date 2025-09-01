@@ -1,104 +1,22 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Creating EC2 instance with Lambda and Role Stack
 
-Parameters:
-  ExistingBucketName:
-    Type: String
-    default: cicdbucket-3601
-    Description: "Name of the pre-created S3 bucket (artifact store) to be used by the pipeline / CFN."
-
 Resources:
-  CodePipelineServiceRole:
-    Type: AWS::IAM::Role
+  IAMRolesStack:
+    Type: AWS::CloudFormation::Stack
     Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: codepipeline.amazonaws.com
-            Action: sts:AssumeRole
-      Policies:
-        - PolicyName: CodePipelinePermissions
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - s3:*
-                  - codebuild:*
-                  - cloudformation:*
-                  - iam:PassRole
-                  - lambda:*
-                  - ec2:*
-                  - logs:CreateLogGroup # For Logging cloudformation.
-                  - logs:CreateLogStream # For Logging cloudformation.
-                  - logs:PutLogEvents # For Logging cloudformation.
-                  - codestar-connections:UseConnection
-                Resource: '*'
-  
-  CodeBuildServiceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: codebuild.amazonaws.com
-            Action: sts:AssumeRole
-      Policies:
-        - PolicyName: CodeBuildPermissions
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - s3:*
-                  - cloudformation:*
-                  - lambda:*
-                  - ec2:*
-                  - logs:*
-                Resource: '*'
+      TemplateURL: https://cicdbucket-3601.s3.us-east-1.amazonaws.com/roles.yml
 
-  LambdaExecutionRole:
-    Type: AWS::IAM::Role
+  LambdaStack:
+    Type: AWS::CloudFormation::Stack
     Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      Policies:
-        - PolicyName: LambdaBasicExecution
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource: '*'
-  
-  CiCdLambdaFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      Handler: index.lambda_handler
-      Role: !GetAtt LambdaExecutionRole.Arn
-      Runtime: nodejs20.x
-      Code:
-        S3Bucket: !Ref ExistingBucketName
-        S3Key: LambdaFunction.zip
-      Timeout: 10
+      TemplateURL: https://cicdbucket-3601.s3.us-east-1.amazonaws.com/lambda-deploy.yml
 
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
+      ImageId: ami-0c02fb55956c7d316
       InstanceType: t3.micro
-      ImageId: ami-00ca32bbc84273381
       KeyName: raj-key-us
       SecurityGroups:
         - !Ref CiCdPipelineSG
