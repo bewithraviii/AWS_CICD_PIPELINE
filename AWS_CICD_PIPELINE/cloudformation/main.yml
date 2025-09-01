@@ -74,8 +74,6 @@ Resources:
                   - logs:PutLogEvents
                 Resource: '*'
   
-  DeploymentBucket:
-    Type: AWS::S3::Bucket
   CiCdLambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
@@ -83,7 +81,7 @@ Resources:
       Role: !GetAtt LambdaExecutionRole.Arn
       Runtime: nodejs20.x
       Code:
-        S3Bucket: !Ref DeploymentBucket
+        S3Bucket: codepipeline-ap-south-1-6c44a6a5fa5c-435a-8992-7075167d17eb
         S3Key: LambdaFunction.zip
       Timeout: 10
 

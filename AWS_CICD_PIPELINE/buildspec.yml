@@ -21,6 +21,7 @@ phases:
     post_build:
       commands:
         - echo "Uploading to S3..."
+        - aws s3 cp LambdaFunction.zip s3://codepipeline-ap-south-1-6c44a6a5fa5c-435a-8992-7075167d17eb/ --region ap-south-1
 artifacts:
   files:
     - LambdaFunction.zip
