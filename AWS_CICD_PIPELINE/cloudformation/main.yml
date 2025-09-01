@@ -2,10 +2,11 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: Creating EC2 instance with Lambda and Role Stack
 
 Parameters:
-  S3BucketName:
+  ExistingBucketName:
     Type: String
-    Description: "Pre-created S3 bucket name that contains LambdaFunction.zip"
-    
+    default: cicdbucket-3601
+    Description: "Name of the pre-created S3 bucket (artifact store) to be used by the pipeline / CFN."
+
 Resources:
   CodePipelineServiceRole:
     Type: AWS::IAM::Role
@@ -30,6 +31,10 @@ Resources:
                   - iam:PassRole
                   - lambda:*
                   - ec2:*
+                  - logs:CreateLogGroup # For Logging cloudformation.
+                  - logs:CreateLogStream # For Logging cloudformation.
+                  - logs:PutLogEvents # For Logging cloudformation.
+                  - codestar-connections:UseConnection
                 Resource: '*'
   
   CodeBuildServiceRole:
@@ -59,7 +64,6 @@ Resources:
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: LambdaExecutionRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -86,7 +90,7 @@ Resources:
       Role: !GetAtt LambdaExecutionRole.Arn
       Runtime: nodejs20.x
       Code:
-        S3Bucket: !Ref S3BucketName
+        S3Bucket: !Ref ExistingBucketName
         S3Key: LambdaFunction.zip
       Timeout: 10
 
@@ -94,8 +98,8 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       InstanceType: t3.micro
-      ImageId: ami-0861f4e788f5069dd
-      KeyName: raj-key
+      ImageId: ami-00ca32bbc84273381
+      KeyName: raj-key-us
       SecurityGroups:
         - !Ref CiCdPipelineSG
       UserData:
