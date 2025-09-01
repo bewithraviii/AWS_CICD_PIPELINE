@@ -10,7 +10,7 @@ phases:
       python: 3.9
     commands:
       - echo "Installing NPM dependencies..."
-      - pip install -r lambda/requirements.txt -t lambda/
+      - pip install -r AWS_CICD_PIPELINE/lambda/requirements.txt -t AWS_CICD_PIPELINE/lambda/
     build:
       commands:
         - echo "Building lambda project..."
